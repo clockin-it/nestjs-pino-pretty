@@ -1,0 +1,29 @@
+{
+    "name": "nestjs-pino-pretty",
+    "version": "0.0.1",
+    "description": "Prettifier for Pino log lines in NestJs Format",
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/clockin-it/nestjs-pino-pretty.git"
+    },
+    "keywords": [
+        "pino"
+    ],
+    "author": "Thiago Tognoli <>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/clockin-it/nestjs-pino-pretty/issues"
+    },
+    "homepage": "https://github.com/clockin-it/nestjs-pino-pretty#readme",
+    "precommit": [
+    ],
+    "dependencies": {
+    },
+    "devDependencies": {
+        "pino": "^9.5.0",
+        "pino-pretty": "^11.3.0"
+    }
+}
