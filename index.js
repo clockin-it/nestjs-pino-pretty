@@ -53,6 +53,8 @@ function pinoPrettyNestjsTransport(opts) {
         date: 'white',
         pid: 'greenBright',
         context: 'yellow',
+        contextRoot: 'yellowBright',
+        worker: 'blueBright',
     }
 
     opts.iconLevels ??= {
@@ -66,6 +68,9 @@ function pinoPrettyNestjsTransport(opts) {
         default: '•',
     }
 
+    const contextRoot = opts.contextRoot ? '[' + opts.contextRoot + ']' : '';
+    const worker = opts.worker ? '{' + opts.worker + '}' : '';
+
     return pinoPretty({
         ...opts,
         messageFormat(log, messageKey, _levelLabel, { colors }) {
@@ -76,7 +81,7 @@ function pinoPrettyNestjsTransport(opts) {
                 const pid = colors[opts.colorsMap.pid](`${opts?.showHostName === true ? log.hostname + ':' : ''}${padOrTruncatePid(log.pid)}`);
                 const levelMessage = opts?.showLevelLabel === true ? ' | ' + logColor(opts.levelsLabelsMap[log.level] ?? 'UNK') : '';
                 const icon = logColor(opts?.iconLevels[level] ?? opts?.iconLevels.default);
-                return `${icon} ${dateMesssage} - ${pid} ${colors[opts.colorsMap.context](padOrTruncateContext(log.context))}${levelMessage} ${logColor(log[messageKey])}`;
+                return `${icon} ${dateMesssage} - ${pid}${colors[opts.colorsMap.worker](worker)} ${colors[opts.colorsMap.contextRoot](contextRoot)}${colors[opts.colorsMap.context](padOrTruncateContext(log.context))}${levelMessage} ${logColor(log[messageKey])}`;
             } catch (error) {
                 // console.error('error', error);
             }
