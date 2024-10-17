@@ -69,7 +69,7 @@ function pinoPrettyNestjsTransport(opts) {
     }
 
     const contextRoot = opts.contextRoot ? '[' + opts.contextRoot + ']' : '';
-    const worker = opts.worker ? '{' + opts.worker + '}' : '';
+    const worker = opts.worker !== undefined && opts.worker !== null ? '{' + opts.worker + '}' : '';
 
     return pinoPretty({
         ...opts,
