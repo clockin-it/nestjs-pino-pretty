@@ -45,6 +45,7 @@ function pinoPrettyNestjsTransport(opts) {
         warn: 'yellowBright',
         error: 'redBright',
         fatal: 'magenta',
+        silent: 'white',
         default: 'blue'
     }
 
@@ -61,6 +62,7 @@ function pinoPrettyNestjsTransport(opts) {
         warn: '۩',
         error: 'ᘿ',
         fatal: 'ᙡ',
+        silent: '.',
         default: '•',
     }
 
