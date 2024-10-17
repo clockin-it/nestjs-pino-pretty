@@ -10,17 +10,22 @@ function padOrTruncateFactory(length = 10, startChar = '',
     padChar = ' '
 ) {
     let availableLength = length - startChar.length - endChar.length;
+    let lenghtAutoResize = options?.lenghtAutoResize ?? false;
+    lenghtAutoResize = (lenghtAutoResize && (options?.lenghtMax === undefined || options?.lenghtMax > length));
 
     return function padOrTruncate(
         str
     ) {
         let truncatedStr = str ?? '';
         if (truncatedStr.length > availableLength) {
-            if (options?.lenghtAutoResize === true) {
-                availableLength = truncatedStr.length;
+            if (lenghtAutoResize && (options?.lenghtMax === undefined || options?.lenghtMax > length)) {
+                const newLeght = options?.lenghtMax !== undefined ? Math.min(truncatedStr.length, options?.lenghtMax) : truncatedStr.length;
+                lenghtAutoResize = !(options?.lenghtMax !== undefined && newLeght >= options?.lenghtMax);
+                availableLength = newLeght;
                 length = availableLength + startChar.length + endChar.length;
-            } else {
-                truncatedStr = truncatedStr.slice(0, availableLength);
+            }
+            if (truncatedStr.length > availableLength) {
+                truncatedStr = truncatedStr.slice(0, availableLength - 1) + '.';
             }
         }
 
@@ -29,8 +34,8 @@ function padOrTruncateFactory(length = 10, startChar = '',
 }
 
 function pinoPrettyNestjsTransport(opts) {
-    const padOrTruncateContext = padOrTruncateFactory(17, '[', ']', { lenghtAutoResize: true });
-    const padOrTruncatePid = padOrTruncateFactory(1, '(', ')', { lenghtAutoResize: true });
+    const padOrTruncateContext = padOrTruncateFactory(18, '[', ']', { lenghtMax: 18, lenghtAutoResize: true });
+    const padOrTruncatePid = padOrTruncateFactory(1, '(', ')', { lenghtMax: 10, lenghtAutoResize: true });
 
     opts ??= {};
     opts.levelsLabelsMap = Object.keys(levels.labels).reduce((levelsLabelsMap, level) => {
